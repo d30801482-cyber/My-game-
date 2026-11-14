@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Friction: 2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>🌐 Global Friction: 2026</h1>
+        
+        <!-- စီးပွားရေးနှင့် စစ်ရေး အချက်အလက်ပြား (Dashboard) -->
+        <div id="ui-panel">
+            <div class="stat-box">📅 အလှည့် (Month): <span id="turn">1</span></div>
+            <div class="stat-box">💰 ဘဏ္ဍာငွေ: <span id="gold">2000</span></div>
+            <div class="stat-box">🔋 သတ္တုရှားပါး (Minerals): <span id="minerals">50</span></div>
+            <div class="stat-box">🤖 ဒရုန်း/ဆိုက်ဘာ: <span id="drones">5</span></div>
+        </div>
+
+        <!-- အမိန့်ပေးခလုတ်များ -->
+        <div id="control-panel">
+            <button onclick="collectResources()">🏭 အရင်းအမြစ်ရှာဖွေမည်</button>
+            <button onclick="launchCyberAttack()">💻 ဆိုက်ဘာတိုက်မည်</button>
+            <button onclick="nextTurn()">⏳ နောက်တစ်လသို့ (Next Turn)</button>
+        </div>
+
+        <!-- ဂိမ်းမြေပုံ (Canvas) -->
+        <canvas id="gameCanvas" width="360" height="300"></canvas>
+        
+        <div id="log-box">
+            <p><strong>📰 သတင်းစဉ်:</strong> <span id="game-log">ဂိမ်းစတင်ပါပြီ။ သင့်နိုင်ငံကို ဦးဆောင်ပါ။</span></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
