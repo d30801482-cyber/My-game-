@@ -1,90 +1,74 @@
-const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
-
-// ဂိမ်းအဓိက အချက်အလက်များ
-let game = {
-    turn: 1,
-    gold: 2000,
-    minerals: 50,
-    drones: 5
-};
-
-// နယ်မြေများစာရင်း (Regions)
-let regions = [
-    { name: "ပြည်တွင်းဒေသ (Home)", owner: "Player", color: "#238636", x: 30, y: 30, w: 140, h: 100 },
-    { name: "အနောက်ဘက် ရေနံကွင်း", owner: "Neutral", color: "#8b949e", x: 190, y: 30, w: 140, h: 100 },
-    { name: "အရှေ့ဘက် နည်းပညာဇုန်", owner: "Enemy", color: "#da3633", x: 30, y: 150, w: 140, h: 100 },
-    { name: "ဆိုက်ဘာဗဟိုချက်", owner: "Enemy", color: "#da3633", x: 190, y: 150, w: 140, h: 100 }
-];
-
-function updateUI() {
-    document.getElementById("turn").innerText = game.turn;
-    document.getElementById("gold").innerText = game.gold;
-    document.getElementById("minerals").innerText = game.minerals;
-    document.getElementById("drones").innerText = game.drones;
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 5px;
 }
 
-function setLog(message) {
-    document.getElementById("game-log").innerText = message;
+#game-container {
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-// မြေပုံဆွဲခြင်း
-function drawMap() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    regions.forEach(reg => {
-        ctx.fillStyle = reg.color;
-        ctx.fillRect(reg.x, reg.y, reg.w, reg.h);
-        
-        ctx.strokeStyle = "#ffffff";
-        ctx.lineWidth = 1;
-        ctx.strokeRect(reg.x, reg.y, reg.w, reg.h);
-
-        // စာသားများထည့်ရန်
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "11px sans-serif";
-        ctx.fillText(reg.name, reg.x + 8, reg.y + 30);
-        ctx.font = "10px sans-serif";
-        ctx.fillText("ပိုင်ရှင်: " + reg.owner, reg.x + 8, reg.y + 60);
-    });
+h1 {
+    font-size: 20px;
+    color: #58a6ff;
+    margin-bottom: 10px;
 }
 
-// ၁။ အရင်းအမြစ်ရှာဖွေခြင်း (Economy)
-function collectResources() {
-    game.gold += 300;
-    game.minerals += 15;
-    setLog("စီးပွားရေး လုပ်ငန်းများမှ အခွန်နှင့် သတ္တုရှားပါးများ ရရှိခဲ့သည်။");
-    updateUI();
+#ui-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-bottom: 10px;
 }
 
-// ၂။ ဆိုက်ဘာစစ်ဆင်ရေး (Cyber Warfare)
-function launchCyberAttack() {
-    if (game.drones >= 2) {
-        game.drones -= 1;
-        // ရန်သူ့နယ်မြေတစ်ခုကို Neutral သို့မဟုတ် Player ဘက်ပြောင်းရန်
-        let enemyRegion = regions.find(r => r.owner === "Enemy");
-        if (enemyRegion) {
-            enemyRegion.owner = "Player";
-            enemyRegion.color = "#238636";
-            setLog("ဆိုက်ဘာတိုက်ခိုက်မှု အောင်မြင်! " + enemyRegion.name + " ၏ အဓိက အဆောက်အအုံကို သိမ်းပိုက်လိုက်သည်။");
-            drawMap();
-        } else {
-            setLog("ရန်သူ့နယ်မြေအားလုံးကို သိမ်းပိုက်ပြီးပါပြီ။");
-        }
-    } else {
-        setLog("ဒရုန်းနှင့် ဆိုက်ဘာယူနစ် မလုံလောက်ပါ။");
-    }
-    updateUI();
+.stat-box {
+    background: #161b22;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: 1px solid #30363d;
 }
 
-// ၃။ နောက်တစ်လသို့ပြောင်းခြင်း (Next Turn)
-function nextTurn() {
-    game.turn += 1;
-    game.gold += 150; // လစဉ်ပုံမှန်ဝင်ငွေ
-    setLog("လအလှည့်ပြောင်းသွားပါပြီ (Turn " + game.turn + ")။ စစ်ရေးပြင်ဆင်မှုများ လုပ်ဆောင်ပါ။");
-    updateUI();
+#control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
 }
 
-// စတင် Run ခြင်း
-updateUI();
-drawMap();
+button {
+    background-color: #238636;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #2ea043;
+}
+
+canvas {
+    background-color: #111;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 360px;
+}
+
+#log-box {
+    background: #161b22;
+    padding: 8px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: left;
+    border: 1px solid #30363d;
+}
