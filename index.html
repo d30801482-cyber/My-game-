@@ -8,29 +8,39 @@
 </head>
 <body>
     <div id="game-container">
-        <h1>🌐 Global Friction: 2026</h1>
-        
-        <!-- စီးပွားရေးနှင့် စစ်ရေး အချက်အလက်ပြား (Dashboard) -->
-        <div id="ui-panel">
-            <div class="stat-box">📅 အလှည့် (Month): <span id="turn">1</span></div>
-            <div class="stat-box">💰 ဘဏ္ဍာငွေ: <span id="gold">2000</span></div>
-            <div class="stat-box">🔋 သတ္တုရှားပါး (Minerals): <span id="minerals">50</span></div>
-            <div class="stat-box">🤖 ဒရုန်း/ဆိုက်ဘာ: <span id="drones">5</span></div>
-        </div>
+        <!-- အပေါ်ပိုင်း Dashboard (အရင်းအမြစ်များနှင့် ငွေကြေး) -->
+        <header id="dashboard">
+            <div class="stat-box">💰 ရွှေ: <span id="gold">1000</span></div>
+            <div class="stat-box">⚡ စွမ်းအင်: <span id="energy">500</span></div>
+            <div class="stat-box">🛡️ စစ်အင်အား: <span id="military">50</span></div>
+            <div class="stat-box">📅 ခုနှစ်: <span id="year">2026</span></div>
+        </header>
 
-        <!-- အမိန့်ပေးခလုတ်များ -->
-        <div id="control-panel">
-            <button onclick="collectResources()">🏭 အရင်းအမြစ်ရှာဖွေမည်</button>
-            <button onclick="launchCyberAttack()">💻 ဆိုက်ဘာတိုက်မည်</button>
-            <button onclick="nextTurn()">⏳ နောက်တစ်လသို့ (Next Turn)</button>
-        </div>
+        <!-- အလယ်ပိုင်း မြေပုံနှင့် နိုင်ငံများ -->
+        <main id="map-section">
+            <div id="map-wrapper">
+                <!-- ဤနေရာတွင် world-map.jpg ဖိုင်ကို တိုက်ရိုက်ခေါ်ယူထားသည်[span_0](start_span)[span_0](end_span) -->
+                <img src="world-map.jpg" alt="World Map" id="world-map">
+                
+                <!-- မြေပုံပေါ်ရှိ နိုင်ငံများကို နှိပ်ရန် နေရာသတ်မှတ်ချက် ခလုတ်များ -->
+                <button class="country-marker" style="top: 40%; left: 20%;" onclick="selectCountry('USA')">USA</button>
+                <button class="country-marker" style="top: 35%; left: 52%;" onclick="selectCountry('Europe')">Europe</button>
+                <button class="country-marker" style="top: 45%; left: 75%;" onclick="selectCountry('Asia')">Asia</button>
+            </div>
+        </main>
 
-        <!-- ဂိမ်းမြေပုံ (Canvas) -->
-        <canvas id="gameCanvas" width="360" height="300"></canvas>
-        
-        <div id="log-box">
-            <p><strong>📰 သတင်းစဉ်:</strong> <span id="game-log">ဂိမ်းစတင်ပါပြီ။ သင့်နိုင်ငံကို ဦးဆောင်ပါ။</span></p>
-        </div>
+        <!-- အောက်ပိုင်း ထိန်းချုပ်ရန် မီနူးနှင့် လုပ်ဆောင်ချက်များ -->
+        <footer id="control-panel">
+            <div id="country-info">
+                <h3>ရွေးချယ်ထားသော နိုင်ငံ: <span id="selected-country">မရှိသေးပါ</span></h3>
+            </div>
+            <div class="action-buttons">
+                <button onclick="buildEconomy()">စီးပွားရေးမြှင့်မည်</button>
+                <button onclick="trainMilitary()">စစ်တပ်စုဖွဲ့မည်</button>
+                <button onclick="doCyberAttack()">ဆိုက်ဘာတိုက်မည်</button>
+                <button onclick="nextTurn()">အလှည့်ကျော်မည်</button>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>
